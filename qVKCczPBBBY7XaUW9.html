@@ -1,0 +1,416 @@
+<html><head><base href="https://interactive.math.future/decimal-operations-for-kids/" target="_blank">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejercicios con Decimales</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #001f3f;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px 20px 40px;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .container {
+    background-color: rgba(0, 41, 82, 0.8);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 0 20px #00a8ff;
+    max-width: 800px;
+    width: 90%;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #00a8ff;
+    text-shadow: 0 0 10px #00a8ff;
+  }
+
+  #exercise {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    background-color: #003366;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00a8ff;
+  }
+
+  #steps {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .step {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s;
+    margin-bottom: 15px;
+    background-color: #004080;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .step.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #result {
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: 3px solid #ff4136;
+    border-radius: 10px;
+    background-color: rgba(255, 65, 54, 0.2);
+    box-shadow: 0 0 10px #ff4136;
+    display: none;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+  }
+
+  .operation-btn {
+    color: #001f3f;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+  }
+
+  #sumBtn {
+    background-color: #00a8ff;
+  }
+
+  #subBtn {
+    background-color: #ff4136;
+  }
+
+  #mulBtn {
+    background-color: #2ecc40;
+  }
+
+  #divBtn {
+    background-color: #ffdc00;
+  }
+
+  .operation-btn:hover {
+    filter: brightness(85%);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+
+  .math-symbols {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.2;
+    pointer-events: none;
+    animation: float 10s infinite linear;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-100vh) rotate(360deg); }
+  }
+
+  #teacher-name {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff00ff, #00ffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: colorChange 5s infinite alternate;
+    z-index: 1000;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+
+  @keyframes colorChange {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+  }
+
+  .visual-representation {
+    font-family: monospace;
+    white-space: pre;
+    background-color: #002b4d;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    overflow-x: auto;
+  }
+
+  .quote-container {
+    margin-top: 2rem;
+    text-align: center;
+    background-color: rgba(0, 41, 82, 0.8);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 0 20px #00a8ff;
+    max-width: 800px;
+    width: 90%;
+  }
+
+  .quote {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #ffdc00;
+    text-shadow: 0 0 10px #ffdc00;
+    letter-spacing: 1px;
+    line-height: 1.5;
+    transition: all 0.3s ease;
+  }
+
+  .quote:hover {
+    transform: scale(1.05);
+    color: #ff4136;
+    text-shadow: 0 0 15px #ff4136;
+  }
+
+  .einstein-image {
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+</style>
+</head>
+<body>
+  <div id="teacher-name">Profesor: Jose Jorge Muñoz</div>
+  <div class="container">
+    <h1>Ejercicios con Decimales</h1>
+    <div id="exercise"></div>
+    <div id="steps"></div>
+    <div id="result"></div>
+    <div class="button-container">
+      <button id="sumBtn" class="operation-btn">Suma</button>
+      <button id="subBtn" class="operation-btn">Resta</button>
+      <button id="mulBtn" class="operation-btn">Multiplicación</button>
+      <button id="divBtn" class="operation-btn">División</button>
+    </div>
+  </div>
+  
+  <div class="quote-container">
+    <p class="quote">Recuerda: La señal de la inteligencia no es el conocimiento, sino la imaginación</p>
+    <img src="https://party.websim.ai/a/64ce6ad1-7aea-4307-b612-9aa82d9813b5" alt="Albert Einstein sacando la lengua, fotografía en blanco y negro, 1951" width="220" height="269" class="einstein-image">
+  </div>
+
+  <script>
+    const operations = ['+', '-', '*', '/'];
+    const symbols = ['+', '-', '×', '÷', '=', '🚀', '👽', '🌟', '🪐'];
+
+    function generateRandomDecimal(decimalPlaces) {
+      return Math.round(Math.random() * Math.pow(10, decimalPlaces)) / Math.pow(10, decimalPlaces);
+    }
+
+    function generateExercise(operation) {
+      if (operation === '/') {
+        const decimalPlaces1 = Math.floor(Math.random() * 2) + 1; // 1 to 2 decimals
+        const decimalPlaces2 = Math.floor(Math.random() * 2) + 1; // 1 to 2 decimals
+        const num1 = generateRandomDecimal(decimalPlaces1);
+        const num2 = generateRandomDecimal(decimalPlaces2);
+        return { num1, num2, operation };
+      } else {
+        const decimalPlaces1 = Math.floor(Math.random() * 2) + 2; // 2 to 3 decimals
+        const decimalPlaces2 = Math.floor(Math.random() * 2) + 2; // 2 to 3 decimals
+        const num1 = generateRandomDecimal(decimalPlaces1);
+        const num2 = generateRandomDecimal(decimalPlaces2);
+        return { num1, num2, operation };
+      }
+    }
+
+    function formatNumber(num) {
+      return num.toFixed(6).replace(/\.?0+$/, '');
+    }
+
+    function padNumber(num, length) {
+      return num.toString().padStart(length, ' ');
+    }
+
+    function solveExercise(exercise) {
+      const { num1, num2, operation } = exercise;
+      let result, steps;
+
+      switch (operation) {
+        case '+':
+          result = num1 + num2;
+          steps = [
+            `Primero, vamos a alinear los números decimales:`,
+            `<div class="visual-representation">
+  ${padNumber(formatNumber(num1), 8)}
++ ${padNumber(formatNumber(num2), 8)}
+  --------</div>`,
+            `Ahora, sumamos de derecha a izquierda:`,
+            `<div class="visual-representation">
+  ${padNumber(formatNumber(num1), 8)}
++ ${padNumber(formatNumber(num2), 8)}
+  --------
+  ${padNumber(formatNumber(result), 8)}</div>`,
+            `1. Sumamos los dígitos de la columna más a la derecha.`,
+            `2. Si el resultado es 10 o más, escribimos solo el dígito de las unidades y llevamos 1 a la siguiente columna.`,
+            `3. Continuamos sumando cada columna, incluyendo el 1 que llevamos si es necesario.`,
+            `4. Mantenemos el punto decimal en su lugar y los ceros al final.`,
+          ];
+          break;
+        case '-':
+          result = num1 - num2;
+          steps = [
+            `Primero, alineamos los números decimales:`,
+            `<div class="visual-representation">
+  ${padNumber(formatNumber(num1), 8)}
+- ${padNumber(formatNumber(num2), 8)}
+  --------</div>`,
+            `Ahora, restamos de derecha a izquierda:`,
+            `<div class="visual-representation">
+  ${padNumber(formatNumber(num1), 8)}
+- ${padNumber(formatNumber(num2), 8)}
+  --------
+  ${padNumber(formatNumber(result), 8)}</div>`,
+            `1. Si el dígito de arriba es menor que el de abajo, pedimos prestado 1 a la columna de la izquierda.`,
+            `2. Cuando pedimos prestado, el dígito de arriba aumenta en 10 y el de la izquierda disminuye en 1.`,
+            `3. Restamos cada columna.`,
+            `4. Mantenemos el punto decimal en su lugar y los ceros al final.`,
+          ];
+          break;
+        case '*':
+          result = num1 * num2;
+          const num1Str = num1.toString();
+          const num2Str = num2.toString();
+          const decimalPlaces = (num1Str.split('.')[1] || '').length + (num2Str.split('.')[1] || '').length;
+          const num1Int = parseFloat(num1Str.replace('.', ''));
+          const num2Int = parseFloat(num2Str.replace('.', ''));
+          const resultInt = num1Int * num2Int;
+
+          steps = [
+            `Para multiplicar decimales, seguimos estos pasos:`,
+            `1. Multiplicamos los números como si fueran enteros, ignorando los puntos decimales:`,
+            `<div class="visual-representation">
+  ${padNumber(num1Int, 8)}
+× ${padNumber(num2Int, 8)}
+--------</div>`,
+            `2. Realizamos la multiplicación paso a paso:`,
+            `<div class="visual-representation">
+  ${padNumber(num1Int, 8)}
+× ${padNumber(num2Int, 8)}
+--------
+${num2Str.replace('.', '').split('').reverse().map((digit, index) => {
+  const partialResult = num1Int * parseInt(digit);
+  return `${padNumber(partialResult, 8 - index)}${' '.repeat(index)}`;
+}).join('\n')}
+--------
+${padNumber(resultInt, 8)}</div>`,
+            `3. Contamos el total de decimales en ambos números: ${decimalPlaces}`,
+            `4. En el resultado final, contamos desde la derecha ${decimalPlaces} posiciones y colocamos el punto decimal:`,
+            `<div class="visual-representation">
+${formatNumber(result)}</div>`
+          ];
+          break;
+        case '/':
+          result = num1 / num2;
+          const multiplier = Math.pow(10, Math.max((num2.toString().split('.')[1] || '').length, 2));
+          const num1Scaled = num1 * multiplier;
+          const num2Scaled = num2 * multiplier;
+
+          steps = [
+            `Para dividir decimales, seguimos estos pasos:`,
+            `1. Multiplicamos ambos números por ${multiplier} para eliminar los decimales del divisor:`,
+            `   ${formatNumber(num1)} ÷ ${formatNumber(num2)} = ${formatNumber(num1Scaled)} ÷ ${num2Scaled}`,
+            `2. Realizamos la división como si fueran números enteros:`,
+            `<div class="visual-representation">
+${num1Scaled} | ${num2Scaled}
+${'-'.repeat(String(num1Scaled).length)}
+${formatNumber(result)}</div>`,
+            `3. El cociente (resultado) es: ${formatNumber(result)}`
+          ];
+          break;
+      }
+
+      steps.push(`¡El resultado final es: ${formatNumber(result)}!`);
+      return { result, steps };
+    }
+
+    function displayExercise(exercise) {
+      const { num1, num2, operation } = exercise;
+      const operationSymbol = operation === '*' ? '×' : operation === '/' ? '÷' : operation;
+      document.getElementById('exercise').textContent = `${formatNumber(num1)} ${operationSymbol} ${formatNumber(num2)}`;
+    }
+
+    function displaySteps(steps) {
+      const stepsContainer = document.getElementById('steps');
+      stepsContainer.innerHTML = '';
+      steps.forEach((step, index) => {
+        const stepElement = document.createElement('div');
+        stepElement.innerHTML = step;
+        stepElement.classList.add('step');
+        stepsContainer.appendChild(stepElement);
+        
+        setTimeout(() => {
+          stepElement.classList.add('visible');
+        }, index * 5000);
+      });
+    }
+
+    function displayResult(result) {
+      const resultElement = document.getElementById('result');
+      resultElement.textContent = `¡Resultado espacial: ${formatNumber(result)}!`;
+      resultElement.style.display = 'block';
+    }
+
+    function clearResult() {
+      const resultElement = document.getElementById('result');
+      resultElement.style.display = 'none';
+      resultElement.textContent = '';
+    }
+
+    function generateExerciseAndSolve(operation) {
+      clearResult(); // Clear the previous result
+      const exercise = generateExercise(operation);
+      displayExercise(exercise);
+      const { result, steps } = solveExercise(exercise);
+      displaySteps(steps);
+      setTimeout(() => {
+        displayResult(result);
+      }, (steps.length - 1) * 5000);
+    }
+
+    document.getElementById('sumBtn').addEventListener('click', () => generateExerciseAndSolve('+'));
+    document.getElementById('subBtn').addEventListener('click', () => generateExerciseAndSolve('-'));
+    document.getElementById('mulBtn').addEventListener('click', () => generateExerciseAndSolve('*'));
+    document.getElementById('divBtn').addEventListener('click', () => generateExerciseAndSolve('/'));
+
+    // Agregar símbolos matemáticos flotantes
+    for (let i = 0; i < 20; i++) {
+      const symbol = document.createElement('div');
+      symbol.classList.add('math-symbols');
+      symbol.style.left = `${Math.random() * 100}vw`;
+      symbol.style.top = `${Math.random() * 100}vh`;
+      symbol.style.animationDuration = `${Math.random() * 20 + 10}s`;
+      symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      document.body.appendChild(symbol);
+    }
+
+    // Generar el primer ejercicio al cargar la página
+    generateExerciseAndSolve('+');
+  </script>
+</body>
+</html>
